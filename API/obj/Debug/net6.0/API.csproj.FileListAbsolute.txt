@@ -66,3 +66,5 @@ D:\Tasks\ASAP Systems\API\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityF
 D:\Tasks\ASAP Systems\API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 D:\Tasks\ASAP Systems\API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 D:\Tasks\ASAP Systems\API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Tasks\ASAP Systems\API\bin\Debug\net6.0\AutoMapper.dll
+D:\Tasks\ASAP Systems\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

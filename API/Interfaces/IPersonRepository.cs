@@ -4,20 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
+using API.Helpers;
 
 namespace API.Interfaces;
 
 public interface IPersonRepository
 {
     void update(Person person);
-
-
-
-    Task<IEnumerable<Person>> GetPersonAsync();
+    bool DeletePerson(Person person);
+    Task<IEnumerable<PersonDto>> GetPersonsAsync();
     Task<Person> GetPersonbyIdAsync(int id);
-    Task<Person> GetPersonbyUserNameAsync(string UserName);
-  //  Task<pageList<MemberDto>> GetMembersAsync(UserParams userparams);
-    Task<PersonDto> GetMemberAsync(string username, bool IsCurrentUser);
-    Task<string> GetUserGender(string username);
-
+    Task<PersonDto> GetPersonbyUserNameAsync(string UserName);
+    Task<pageList<PersonDto>> GetPersonsAsyncPN(PersonParams userparams);
+    bool SaveChanages();
 }
