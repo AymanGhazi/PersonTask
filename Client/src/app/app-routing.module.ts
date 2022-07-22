@@ -4,9 +4,6 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { IconsComponent } from './pages/icons/icons.component';
-import { UserComponent } from './pages/user/user.component';
-import { TableComponent } from './pages/table/table.component';
 import {  AdminLayoutRoutesModule } from './layouts/admin-layout/admin-layout.routing';
 import { NotFoundComponent } from './not-found/not-found.component';
 
