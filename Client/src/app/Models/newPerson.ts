@@ -1,17 +1,14 @@
-import { address } from "./Address";
+import { address } from './Address';
 
-export interface Person {
-    
-    id: number;
+export interface newPerson  {
     avatarId: number;
     userName: string;
     email: string;
     age: number;
     dateOfBirth: Date;
-    created: Date;
     gender: string;
     phoneNumber: string;
     addresses: address[];
-    roles:string[]|any[]
-    token:string
+    created:Date
+    
 }

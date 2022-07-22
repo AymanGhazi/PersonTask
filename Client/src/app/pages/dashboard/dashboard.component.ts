@@ -3,11 +3,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Person } from 'src/app/Models/person';
 import { PersonService } from 'src/app/Services/person-service.service';
 import { ConfirmationModalComponent } from './../../shared/Modals/confirmation-modal/confirmation-modal.component';
 import { PersonFormModalComponent } from './../../shared/Modals/person-form-modal/person-form-modal.component';
+import {DataTableDirective} from 'angular-datatables';
+import { AccountService } from './../../Services/account.service';
+import { ToastrService } from 'ngx-toastr';
+import { AdminService } from './../../Services/admin.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NewPersonModalComponent } from 'src/app/shared/Modals/new-person-modal/new-person-modal.component';
 
 
 @Component({
@@ -16,66 +22,134 @@ import { PersonFormModalComponent } from './../../shared/Modals/person-form-moda
   styleUrls: ["./dashboard.component.scss"],
 })
 
-export class DashboardComponent implements OnInit,AfterViewInit,OnDestroy{
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+export class DashboardComponent implements OnInit,OnDestroy{
+  dtOptions: DataTables.Settings = {};
+  Persons:Person[]=[]
+ dtTrigger: Subject<any> = new Subject<any>();
+  currentUser!:Person
+  IsAdmin=false;
+  modalRef!:BsModalRef;
+  constructor(private personsService: PersonService,  private modalService:BsModalService,private toaster:ToastrService,private adminService:AdminService,public dialog: MatDialog) {}   
+ 
 
-  public displayedColumns: string[] = ['firstName', 'age', 'job'];
-  public columnsToDisplay: string[] = [...this.displayedColumns, 'actions'];
-
-  /**
-   * it holds a list of active filter for each column.
-   * example: {firstName: {contains: 'person 1'}}
-   *
-   */
-  public columnsFilters = {};
-
-  public dataSource: MatTableDataSource<Person>;
-  private serviceSubscribe!: Subscription;
-
-  constructor(private personsService: PersonService, public dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource<Person>();
-  }   
-
-  edit(data: Person) {
-    const dialogRef = this.dialog.open(PersonFormModalComponent, {
-      width: '400px',
-      data: data
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.personsService.edit(result);
+   
+    ngOnInit(): void {
+      //Get Current User
+      this.currentUser=JSON.parse(localStorage.getItem('user')||"");
+      //IsAdmin
+   if (this.currentUser.roles.find(a=>a.includes("Admin"))) {
+      this.IsAdmin=true
       }
-    });
+    //TableOptions
+    this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 2,
+      };
+
+    this.getPersons()
+
   }
 
-  delete(id: any) {
-    const dialogRef = this.dialog.open(ConfirmationModalComponent);
+  getPersons(){
+     this.personsService.getAllPersons().subscribe(response=>{
+      this.Persons=response
+       this.dtTrigger.next(this.Persons);
+    })
+  }
 
+
+  delete(id: number) {
+    const dialogRef = this.dialog.open(ConfirmationModalComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.personsService.remove(id);
+        this.adminService.remove(id).subscribe(response=>{
+          this.toaster.success("Deleted Successfully","Success",{positionClass:"toast-bottom-left"})
+          this.getPersons()
+          window.alert=function(){}
+        })
       }
     });
   }
   
+  edit(person: Person) {
+    this.adminService.getPersonWithRoles(person.id).subscribe(result=>{
+        person.roles=result.roles
+      
+        const config = {
+      class:'modal-dialog-centered',
+      initialState:{
+        person,
+        roles:this.GetRolesArray(person),
+        addresses:person.addresses
+      }
+      }
+ 
+   this.modalRef=this.modalService.show(PersonFormModalComponent,config);
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+    this.modalRef.content?.updateSelectedRoles.subscribe((values:Person)=>{
 
-  /**
-   * initialize data-table by providing persons list to the dataSource.
-   */
-  ngOnInit(): void {
-   
-  }
-
+ const rolestosend={
+    roles:[...values.roles.filter(el=>el.checked==true).map(el=>el.name)]
+  };
+      this.adminService.updatePerson(person.id,values,rolestosend.roles).subscribe(()=>{
+      this.toaster.success("updated Successfully","Success",{positionClass:"toast-bottom-left"})
+      person=values
+      person.roles=[...values.roles]
+      person.addresses=[...values.addresses]
+    })
+  })
+  })
+    }
+    private GetRolesArray(person:Person){
+      const RoleToGet:any=[];
+      const UserRoles=person.roles;
+      const availableRoles:any[]=[
+        {name:"Admin",value:"Admin"},
+        {name:"Moderator",value:"Moderator"},
+        {name:"Member",value:"Member"},
+      ]
+      
+      availableRoles.forEach(r=>{
+       let IsMatch=false;
+        for (const userRole of UserRoles) {
+        if (r.name==userRole) {
+        IsMatch=true;
+        r.checked=true
+        RoleToGet.push(r)
+        break;
+          }
+        }
+        if (!IsMatch) {
+          r.checked=false;
+          RoleToGet.push(r);
+        }
+      })
+      
+      return RoleToGet;
+      
+    }
+    newPerson(){
+     
+      
+      const config = {
+      class:'modal-dialog-centered',
+      initialState:{
+        roles: [
+         {name:"Admin",value:"Admin",checked:false},
+         {name:"Moderator",value:"Moderator",checked:false},
+         {name:"Member",value:"Member",checked:true}
+              ]
+        }
+      }
+    this.modalRef=this.modalService.show(NewPersonModalComponent,config);
+    this.modalRef.content?.updateSelectedRoles.subscribe((values:Person)=>{
+    });
+    }
+ 
   ngOnDestroy(): void {
-    this.serviceSubscribe.unsubscribe();
-  }
+    this.dtTrigger.unsubscribe();}
 }
+
+
 
 

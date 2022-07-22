@@ -22,10 +22,10 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Username</mat-label>
-                  <input matInput formControlName="username" required />
+                  <input matInput formControlName="userName" required />
                   <mat-icon matSuffix>face</mat-icon>
                   <mat-error
-                    *ngIf="authForm.get('username')?.hasError('required')"
+                    *ngIf="authForm.get('userName')?.hasError('required')"
                   >
                     Username is required
                   </mat-error>
@@ -91,6 +91,74 @@
                 </mat-form-field>
               </div>
             </div>
+            <div class="row">
+              <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-radio-group> </mat-radio-group>
+                <section class="example-section">
+                  <mat-label>Gender</mat-label>
+                  <mat-radio-group
+                    formControlName="Gender"
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-radio-button
+                      required
+                      class="example-margin"
+                      value="Male"
+                      >Male</mat-radio-button
+                    >
+                    <mat-radio-button class="example-margin" value="Female"
+                      >Female</mat-radio-button
+                    >
+                  </mat-radio-group>
+                </section>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Phone Number</mat-label>
+                  <input matInput formControlName="PhoneNumber" required />
+                  <mat-icon matSuffix>phone</mat-icon>
+                  <mat-error
+                    *ngIf="
+                      authForm.get('PhoneNumber')?.hasError('required') ||
+                      authForm.get('PhoneNumber')?.touched
+                    "
+                  >
+                    Please enter a valid Phone Number
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Country</mat-label>
+                  <input matInput formControlName="country" />
+                  <mat-icon matSuffix>location_city</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>City</mat-label>
+                  <input matInput formControlName="city" />
+                  <mat-icon matSuffix>location_city</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Street</mat-label>
+                  <input matInput formControlName="street" />
+                  <mat-icon matSuffix>location_city</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+
             <div class="flex-sb-m w-full p-b-20">
               <div>
                 <span>Already Registered? <a routerLink="/"> Login </a></span>
@@ -108,27 +176,10 @@
               </button>
             </div>
           </form>
-          <h6 class="social-login-title">OR</h6>
+          <h6 class="social-login-title">-</h6>
           <ul class="list-unstyled social-icon mb-0 mt-3">
             <li class="list-inline-item">
-              <a href="javascript:void(0)" class="rounded">
-                <i class="fab fa-google"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="javascript:void(0)" class="rounded flex-c-m">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="javascript:void(0)" class="rounded">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="javascript:void(0)" class="rounded">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
+              <p></p>
             </li>
           </ul>
         </div>

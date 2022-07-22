@@ -36,21 +36,22 @@ namespace API.Data
                 await RolesManager.CreateAsync(role);
             }
 
-
-            foreach (var user in users)
-            {
-                //like foreach
-                user.UserName = user.UserName.ToLower();
-                await UserManager.CreateAsync(user, "Pa$$w0rd");
-                await UserManager.AddToRoleAsync(user, "Member");
-
-            }
             var admin = new Person
             {
+                UserName = "admin",
+
                 Email = "admin@gmail.com"
             };
             await UserManager.CreateAsync(admin, "Pa$$w0rd");
             await UserManager.AddToRolesAsync(admin, new[] { "admin", "moderator" });
+
+            foreach (var user in users)
+            {
+                await UserManager.CreateAsync(user, "Pa$$w0rd");
+                await UserManager.AddToRoleAsync(user, "Member");
+
+            }
+
         }
     }
 }

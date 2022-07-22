@@ -1,34 +1,65 @@
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <ng-container
-      *ngFor="let column of displayedColumns"
-      [matColumnDef]="column"
-    >
-      <th mat-header-cell *matHeaderCellDef>
-        <div style="display: flex; align-items: center">
-          <span mat-sort-header>{{ column }}</span>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
-    </ng-container>
-    <ng-container [matColumnDef]="'actions'">
-      <th mat-header-cell *matHeaderCellDef>actions</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button (click)="edit(element)">
-          <mat-icon mat-icon-button color="primary">edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="delete(element['id'])">
-          <mat-icon mat-icon-button color="warn">delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
-  </table>
+<div class="row d-flex">
+  <button
+    type="button"
+    (click)="newPerson()"
+    class="addButton btn btn-primary btn-round"
+  >
+    <i _ngcontent-hop-c112="" class="nc-icon nc-simple-add"></i>
+  </button>
 
-  <mat-paginator
-    [pageSize]="5"
-    [pageSizeOptions]="[5, 10, 50]"
-    showFirstLastButtons
-  ></mat-paginator>
+  <table
+    datatable
+    [dtOptions]="dtOptions"
+    [dtTrigger]="dtTrigger"
+    class="row-border hover"
+  >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>user Name</th>
+        <th>Age</th>
+        <th>Date Of Birth</th>
+        <th>created On</th>
+        <th>Gender</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let person of Persons">
+        <td>{{ person.id }}</td>
+        <td>{{ person.userName }}</td>
+        <td>{{ person.age }}</td>
+        <td>{{ person.dateOfBirth | date }}</td>
+        <td>{{ person.created | timeago }}</td>
+        <td>{{ person.gender }}</td>
+        <td>{{ person.phoneNumber }}</td>
+        <td>
+          <span *ngFor="let address of person.addresses">
+            {{ address.country }} - {{ address.city }} - {{ address.street }}
+            <br />
+          </span>
+        </td>
+        <td>
+          <button
+            [disabled]="!IsAdmin"
+            (click)="edit(person)"
+            type="button"
+            class="btn btn-info"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            [disabled]="!IsAdmin"
+            (click)="delete(person.id)"
+            type="button"
+            class="btn btn-danger"
+          >
+            <mat-icon>restore_from_trash</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

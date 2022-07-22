@@ -10,15 +10,19 @@ import { IconsComponent }           from '../../pages/icons/icons.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   import { SharedModule } from './../../shared/shared.module';
 import { AdminLayoutRoutes, AdminLayoutRoutesModule } from './admin-layout.routing';
+import { TimeagoModule } from 'ngx-timeago';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   imports: [
-CommonModule,
+    CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     NgbModule,
     SharedModule,
-    AdminLayoutRoutesModule
+    AdminLayoutRoutesModule,
+    DataTablesModule,
+    TimeagoModule.forRoot()
   ],
   declarations: [
     DashboardComponent,

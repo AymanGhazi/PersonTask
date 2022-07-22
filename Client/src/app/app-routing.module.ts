@@ -8,13 +8,12 @@ import { IconsComponent } from './pages/icons/icons.component';
 import { UserComponent } from './pages/user/user.component';
 import { TableComponent } from './pages/table/table.component';
 import {  AdminLayoutRoutesModule } from './layouts/admin-layout/admin-layout.routing';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-{
-    path: '',
-    component:LoginComponent,
-  },
-   { path:"register", component:RegisterComponent },
+    {path: '',component:LoginComponent,},
+    { path:"register", component:RegisterComponent },
+    { path:"**", component:NotFoundComponent },
  ];
 
 @NgModule({

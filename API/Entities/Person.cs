@@ -15,6 +15,6 @@ public class Person : IdentityUser<int>
     public ICollection<Address> Adresses { get; set; }
     public ICollection<AppPersonRole> Roles { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public int AvatarId { get; set; }
+    public int AvatarId { get; set; } = 0;
 
 }

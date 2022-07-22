@@ -11,3 +11,11 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::ng-deep .cdk-overlay-container mat-datepicker-content{
+  z-index:2000;
+}
+.cdk-overlay-container {
+    position: absolute;
+    z-index: 10000000;
+}

@@ -22,12 +22,14 @@ namespace API.Helpers
 
             CreateMap<PersonDto, Person>()
             .ForMember(a => a.Adresses, opt => opt.MapFrom(a => a.Adresses));
+           
 
             CreateMap<Address, AddressDto>();
             CreateMap<AddressDto, Address>();
 
             CreateMap<PersonUpdateDto, Person>()
             .ForMember(a => a.Adresses, opt => opt.MapFrom(src => src.Adresses));
+
             CreateMap<RegisterDto, Person>()
              .ForMember(a => a.Adresses, opt => opt.MapFrom(src => src.Addresses));
 

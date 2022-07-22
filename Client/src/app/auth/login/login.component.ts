@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AccountService } from './../../Services/account.service';
+import { Person } from 'src/app/Models/person';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +21,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private AccountService:AccountService,
+    private toastr:ToastrService
    
   ) {
    
@@ -25,32 +30,36 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ["admin@hospital.org", Validators.required],
-      password: ["admin@123", Validators.required],
+      email: ["ayman@gmail.com", Validators.required],
+      password: ["Pa$$w0rd", Validators.required],
     });
   }
   get f() {
     return this.authForm.controls;
   }
-  adminSet() {
-    this.authForm.get("username")?.setValue("admin@hospital.org");
-    this.authForm.get("password")?.setValue("admin@123");
+  UserSet() {
+    this.authForm.get("email")?.setValue("ayman@gmail.com");
+    this.authForm.get("password")?.setValue("Pa$$w0rd");
   }
-  doctorSet() {
-    this.authForm.get("username")?.setValue("doctor@hospital.org");
-    this.authForm.get("password")?.setValue("doctor@123");
+  AdminSet() {
+    this.authForm.get("email")?.setValue("admin@gmail.com");
+    this.authForm.get("password")?.setValue("Pa$$w0rd");
   }
-  patientSet() {
-    this.authForm.get("username")?.setValue("patient@hospital.org");
-    this.authForm.get("password")?.setValue("patient@123");
-  }
+ 
   onSubmit() {
     this.submitted = true;
-    this.loading = true;
     this.error = "";
     if (this.authForm.invalid) {
-      this.error = "Username and Password not valid !";
-      return;
+      this.error = "Email and Password not valid !";  
+        return;
+    }else{
+    this.loading = true;
+    this.AccountService.login(this.authForm.value).subscribe((response)=>{
+          this.router.navigateByUrl("/dashboard")
+          this.toastr.success("SccuessFull Login","Success",{positionClass:"toast-bottom-left"})
+      })
     }
+     
+  
   }
 }

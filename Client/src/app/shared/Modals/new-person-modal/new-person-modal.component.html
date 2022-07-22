@@ -16,7 +16,7 @@
                 required
                 type="text"
                 class="form-control"
-                placeholder="Edit User Name"
+                placeholder="User Name"
               />
               <span
                 class="text-danger"
@@ -81,6 +81,27 @@
             </div>
           </div>
         </div>
+
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [(ngModel)]="person.dateOfBirth"
+          name="dateOfBirth"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker class="datepicker"></mat-datepicker>
+        <section class="example-section">
+          <label class="example-margin">Gender:</label>
+          <mat-radio-group [(ngModel)]="person.gender" name="gender">
+            <mat-radio-button class="example-margin" value="Male"
+              >Male</mat-radio-button
+            >
+            <mat-radio-button class="example-margin" value="Female"
+              >Female</mat-radio-button
+            >
+          </mat-radio-group>
+        </section>
         <div class="row">
           <div class="col-md-12">
             <section class="example-section">

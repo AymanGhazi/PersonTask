@@ -17,7 +17,7 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-        builder.Services.AddControllers().AddJsonOptions(op=>op.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+        builder.Services.AddControllers().AddJsonOptions(op => op.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -67,8 +67,9 @@ internal class Program
         app.UseCors(policy => policy
         .AllowAnyHeader()
         .AllowAnyMethod()
-        .AllowCredentials()
-        .WithOrigins("https://localhost:4200"));
+      
+        .AllowAnyOrigin());
+        //  .WithOrigins("https://localhost:4200"));
 
         app.UseAuthorization();
 

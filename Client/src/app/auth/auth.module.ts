@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -21,7 +22,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MatIconModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ToastrModule
   ],exports:[
      MatFormFieldModule,
     ReactiveFormsModule,

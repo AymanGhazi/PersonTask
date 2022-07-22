@@ -1,34 +1,52 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { address } from 'src/app/Models/Address';
 import { Person } from './../../../Models/person';
-
 @Component({
   selector: 'app-person-form-modal',
   templateUrl: './person-form-modal.component.html',
   styleUrls: ['./person-form-modal.component.scss']
 })
-export class PersonFormModalComponent implements OnInit {
-
-formInstance: FormGroup;
-
-  constructor(public dialogRef: MatDialogRef<PersonFormModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Person) {
-    this.formInstance = new FormGroup({
-      "id":  new FormControl('', Validators.required),
-      "firstName": new FormControl('', Validators.required),
-      "age": new FormControl('', Validators.required),
-      "job": new FormControl('', Validators.required),
-    });
-
-    this.formInstance.setValue(data);
-  }
+export class PersonFormModalComponent implements OnInit{
+@Input()  updateSelectedRoles=new EventEmitter();
+  person!: Person;
+  roles!:any[];
+  addresses!:any[];
+  NewAddress:address[]=[]
+  IsRoleSelected=false
+  constructor(
+    public BsModalRef: BsModalRef) {
+     }
 
   ngOnInit(): void {
-
+      this.NoRolesSelected()
+     this.NewAddress=[{
+      city:"",
+      country:"",
+      street:""
+     }]
   }
-  person!:Person
-  save(): void {
-    this.dialogRef.close(Object.assign( this.person, this.formInstance.value));
+  NoRolesSelected(){
+    this.IsRoleSelected=Object.values(this.roles).some(v=>v.checked ==true)
+  }
+  addAddress(){
+    this.NewAddress.push({
+      city:"",
+      country:"",
+      street:""
+     })
+  }
+  submit(){
+    var personToBeUpdated=this.person;
+    if (this.addresses.length==0) {
+      
+      personToBeUpdated.addresses=this.NewAddress
+    }else{
+    personToBeUpdated.addresses=this.addresses;
+    }
+    personToBeUpdated.roles=this.roles
+    this.updateSelectedRoles.emit(personToBeUpdated);
+    this.BsModalRef.hide();    
   }
 }

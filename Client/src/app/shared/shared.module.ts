@@ -13,11 +13,17 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { ConfirmationModalComponent } from './Modals/confirmation-modal/confirmation-modal.component';
 import { PersonFormModalComponent } from './Modals/person-form-modal/person-form-modal.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { NewPersonModalComponent } from './Modals/new-person-modal/new-person-modal.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const icons = {
   Camera,
@@ -32,7 +38,9 @@ const icons = {
     NavbarComponent,
     FooterComponent,
     ConfirmationModalComponent,
-    PersonFormModalComponent
+    PersonFormModalComponent,
+    NewPersonModalComponent,
+    
   ]
     ,
   imports: [
@@ -49,8 +57,13 @@ CommonModule,
   MatDialogModule,
   ReactiveFormsModule,
   MatInputModule,
-  MatSelectModule
-  
+  MatSelectModule,
+  MatCheckboxModule,
+  MatRadioModule,
+  ModalModule,
+  FormsModule,
+  MatDatepickerModule,
+  MatNativeDateModule
   
   ],exports:[ 
   NavbarComponent,
@@ -64,7 +77,13 @@ CommonModule,
   MatDialogModule,
   ReactiveFormsModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatCheckboxModule,
+  MatRadioModule,
+  FormsModule,
+  MatDatepickerModule,
+  MatNativeDateModule
+
   ]
 })
 export class SharedModule { }

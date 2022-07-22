@@ -11,11 +11,13 @@ public class PersonDto
     public int Id { get; set; }
     public int AvatarId { get; set; } = 0;
     public string userName { get; set; }
+    public string Email { get; set; }
     public int Age { get; set; }
     public DateTime DateOfBirth { get; set; }
     public DateTime Created { get; set; } = DateTime.Now;
     public string Gender { get; set; }
     public string PhoneNumber { get; set; }
+
     public ICollection<AddressDto> Adresses { get; set; }
 }
 

@@ -77,19 +77,7 @@ public class PersonController : BaseApiController
         return BadRequest("Failed to update user");
     }
 
-    [HttpDelete("DeletePerson")]
-    public async Task<ActionResult> DeletePerson(PersonDto PersonDto)
-    {
-        var user = await _personRepository.GetPersonbyIdAsync(PersonDto.Id);
 
-        var mapping = _mapper.Map(PersonDto, user);
-
-        if (_personRepository.DeletePerson(mapping))
-        {
-            return Ok();
-        }
-        return BadRequest("Failed to update user");
-    }
 
 
 

@@ -19,6 +19,8 @@ public class ApplicationDbContext : IdentityDbContext<Person,
 
     }
     public DbSet<Person> persons { get; set; }
+    public DbSet<Address> Addresses { get; set; }
+
     protected override void OnModelCreating(ModelBuilder Builder)
     {
         base.OnModelCreating(Builder);
@@ -27,6 +29,8 @@ public class ApplicationDbContext : IdentityDbContext<Person,
         .HasMany(a => a.Adresses)
         .WithOne(p => p.Person)
         .OnDelete(DeleteBehavior.Cascade);
+
+
 
         Builder.Entity<Person>()
         .HasMany(ur => ur.Roles)

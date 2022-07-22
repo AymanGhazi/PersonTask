@@ -1,0 +1,11 @@
+.addButton{
+    max-width: 140px;
+}
+.d-flex {
+    display: flex !important;
+    justify-content: center;
+    align-content: center;
+}
+::ng-deep .cdk-overlay-container mat-datepicker-content{
+  z-index:2000;
+}
