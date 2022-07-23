@@ -152,7 +152,12 @@
                     [for]="picker"
                   ></mat-datepicker-toggle>
                   <mat-datepicker #picker class="datepicker"></mat-datepicker>
-                  <mat-error *ngIf="authForm.get('dateOfBirth')?.touched">
+                  <mat-error
+                    *ngIf="
+                      authForm.get('dateOfBirth')?.hasError('required') &&
+                      authForm.get('dateOfBirth')?.touched
+                    "
+                  >
                     Date Of Birth is required
                   </mat-error>
                 </div>

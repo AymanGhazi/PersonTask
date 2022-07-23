@@ -28,10 +28,10 @@ export class RegisterComponent implements OnInit {
         '',
         [Validators.required ,Validators.email],
       ],
-      password: ['', 
+      password: ['',[
       Validators.required,
-      Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm)],
-      cpassword: [null,[Validators.required, this.matchValues('password')]],
+      Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm)]],
+      cpassword: ['',[Validators.required, this.matchValues('password')]],
       PhoneNumber: ['', Validators.required],
       Gender: ['Male', Validators.required],
       dateOfBirth: ['', Validators.required],

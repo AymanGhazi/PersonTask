@@ -1,6 +1,7 @@
 <div class="row d-flex">
   <button
     type="button"
+    [disabled]="!IsAdmin"
     (click)="newPerson()"
     class="addButton btn btn-primary btn-round"
   >
@@ -64,7 +65,7 @@
             <mat-icon>edit</mat-icon>
           </button>
           <button
-            [disabled]="!IsAdmin"
+            [disabled]="!IsAdmin || currentUser.id == person.id"
             (click)="delete(person.id)"
             type="button"
             class="btn btn-danger"
