@@ -12,5 +12,5 @@ public class PersonUpdateDto
     public DateTime DateOfBirth { get; set; }
     public int AvatarId { get; set; } = 0;
     public string UserName { get; set; }
-    public ICollection<AddressDto> Adresses { get; set; }
+    public ICollection<AddressDto> Addresses { get; set; }
 }

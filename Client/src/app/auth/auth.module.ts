@@ -22,7 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     MatIconModule,
     SharedModule,
-    RouterModule,
+    RouterModule, 
     ToastrModule
   ],exports:[
      MatFormFieldModule,

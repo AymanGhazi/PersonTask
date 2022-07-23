@@ -18,17 +18,17 @@ user!:Person
   }
  
   getPersonWithRoles(Id:number){
-      return this.HttpClient.get<Person>(this.baseApi+'/api/Admin/'+Id);
+      return this.HttpClient.get<Person>(this.baseApi+'/api/admin/'+Id);
     }
   updatePerson(id:number,Person:Person,roles:string[]){
     
-    return this.HttpClient.post(this.baseApi+'/api/Admin/edit-Person/'+id+"?roles="+roles,Person,{responseType: 'text'})
+    return this.HttpClient.post(this.baseApi+'/api/admin/edit-Person/'+id+"?roles="+roles,Person)
     }
   remove(id:number) {
-   return this.HttpClient.delete(this.baseApi+"/api/Admin/"+id)
+   return this.HttpClient.delete(this.baseApi+"/api/admin/"+id)
   }
-   AddPerson(Person:any){
-    return this.HttpClient.post(this.baseApi+'/api/Admin/add-person',Person).pipe(share())
+   AddPerson(Person:any,roles:string[]){
+    return this.HttpClient.post(this.baseApi+'/api/admin/add-person'+"?roles="+roles,Person)
     }
 
 }

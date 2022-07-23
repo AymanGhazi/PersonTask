@@ -18,6 +18,6 @@ public class PersonDto
     public string Gender { get; set; }
     public string PhoneNumber { get; set; }
 
-    public ICollection<AddressDto> Adresses { get; set; }
+    public ICollection<AddressDto> Addresses { get; set; }
 }
 

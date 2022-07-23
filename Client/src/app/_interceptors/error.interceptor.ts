@@ -27,7 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   console.log(error)
                 }
               } else if (typeof(error.error) === 'object') {
-                this.toastr.error(error.status,  error.error[0].description);
+                
 
               } else {
                 this.toastr.error(error.error, error.status);

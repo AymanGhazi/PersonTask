@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmationModalComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }

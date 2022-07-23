@@ -19,14 +19,14 @@ export class NewPersonModalComponent implements OnInit {
   NewAddress:address[]=[]
   IsRoleSelected=false
   constructor(
-    public BsModalRef: BsModalRef,private adminService:AdminService,private toaster:ToastrService) {
+    public BsModalRef: BsModalRef) {
       this.person={
         userName:"",
         age:0,
         avatarId:0,
         email:"",
-        gender:"",
-        created:new Date(),
+        roles:this.roles,
+        gender:"Male",
         dateOfBirth:new Date(),
         phoneNumber:"",
         addresses:[{
@@ -48,29 +48,19 @@ export class NewPersonModalComponent implements OnInit {
   NoRolesSelected(){
     this.IsRoleSelected=Object.values(this.roles).some(v=>v.checked ==true)
   }
-  addAddress(){
-    this.NewAddress.push({
-      city:"",
-      country:"",
-      street:""
-     })
-  }
+
   submit(){
-    var personToBeUpdated=this.person;
+    var personToBeCreated=this.person;
+    personToBeCreated.roles=this.roles
     if (this.addresses.length==0) {
-      personToBeUpdated.addresses=this.NewAddress
+      personToBeCreated.addresses=this.NewAddress
     }else{
-    personToBeUpdated.addresses=this.addresses;
+    personToBeCreated.addresses=this.addresses;
     }
-    console.log(personToBeUpdated);
-    personToBeUpdated.dateOfBirth=new Date()
-debugger
-    this.adminService.AddPerson(personToBeUpdated).subscribe((response:any)=>{
-     if (response.result=="successfull") {
-      this.toaster.success("Added")
-     }
-    })
-    this.updateSelectedRoles.emit(personToBeUpdated);
+    console.log(personToBeCreated);
+ 
+   
+    this.updateSelectedRoles.emit(personToBeCreated);
     this.BsModalRef.hide();    
   }
 }

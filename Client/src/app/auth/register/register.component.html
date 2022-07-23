@@ -112,6 +112,21 @@
                     >
                   </mat-radio-group>
                 </section>
+                <div class="dateOfbirth">
+                  <mat-label>Date of Birth</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="dateOfBirth"
+                    name="dateOfBirth"
+                  />
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker class="datepicker"></mat-datepicker>
+                </div>
               </div>
             </div>
             <div class="row">

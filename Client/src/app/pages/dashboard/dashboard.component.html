@@ -16,7 +16,9 @@
     <thead>
       <tr>
         <th>ID</th>
+        <th></th>
         <th>user Name</th>
+
         <th>Age</th>
         <th>Date Of Birth</th>
         <th>created On</th>
@@ -29,7 +31,18 @@
     <tbody>
       <tr *ngFor="let person of Persons">
         <td>{{ person.id }}</td>
-        <td>{{ person.userName }}</td>
+        <td>
+          <img
+            class="avatar"
+            src="assets/avatars/avatar-{{ person.avatarId }}.png"
+            alt=""
+          />
+        </td>
+
+        <td>
+          {{ person.userName }}
+        </td>
+
         <td>{{ person.age }}</td>
         <td>{{ person.dateOfBirth | date }}</td>
         <td>{{ person.created | timeago }}</td>

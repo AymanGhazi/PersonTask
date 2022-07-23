@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-  import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,8 +14,8 @@ import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
-import { TimeagoModule } from 'ngx-timeago';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,9 +26,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   ],
   imports: [
   BrowserModule,
-  AppRoutingModule,
   HttpClientModule,
   AdminLayoutModule,
+  AppRoutingModule,
   BrowserAnimationsModule,
   SidebarModule,
   NgbModule,
@@ -37,13 +36,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   ToastrModule.forRoot(),
   AuthModule,
   ModalModule.forRoot()
-
-   
-
   ],
   providers: 
-  [ {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
-  
+  [ 
+    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
   ],
   bootstrap: [AppComponent]
 })

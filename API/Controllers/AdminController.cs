@@ -22,21 +22,22 @@ public class AdminController : BaseApiController
     private readonly IPersonRepository _personRepository;
     private readonly IMapper _mapper;
 
+    private readonly AccountController _accountController;
+
     public AdminController(ILogger<AdminController> logger, UserManager<Person> userManager, ApplicationDbContext context,
-    IPersonRepository personRepository, IMapper mapper)
+    IPersonRepository personRepository, IMapper mapper
+  )
     {
+
         _mapper = mapper;
         _personRepository = personRepository;
         _context = context;
         _userManager = userManager;
         _logger = logger;
     }
-
-
     // [Authorize(Policy = "RequireAdminRole")]
     [HttpGet("{Id}")]
-
-    public async Task<ActionResult> GetUsersWithRoles(int Id)
+    public async Task<ActionResult> GetpersonWithRoles(int Id)
     {
         var users = await _userManager.Users
         .Include(r => r.Roles)
@@ -50,9 +51,9 @@ public class AdminController : BaseApiController
         .FirstOrDefaultAsync(P => P.Id == Id);
         return Ok(users);
     }
-    // [Authorize(Policy = "RequireAdminRole")]
+    //[Authorize(Policy = "RequireAdminRole")]
     [HttpPost("edit-person/{id}")]
-    public async Task<ActionResult> EditUser(int id, [FromBody] EditPerson person, [FromQuery] string roles)
+    public async Task<ActionResult> EditPerson(int id, [FromBody] EditPerson person, [FromQuery] string roles)
     {
         var SelectedRoles = roles.Split(",").ToArray();
         var user = await _userManager.FindByIdAsync(id.ToString());
@@ -63,10 +64,10 @@ public class AdminController : BaseApiController
         user.AvatarId = person.AvatarId;
         user.UserName = person.userName;
         user.Email = person.Email;
-        user.Age = person.Age;
+        user.DateOfBirth = person.DateOfBirth;
         user.Gender = person.Gender;
         user.PhoneNumber = person.PhoneNumber;
-        user.Adresses = person.Adresses.Select(add =>
+        user.Addresses = person.Addresses.Select(add =>
                                             new Address
                                             {
                                                 City = add.City,
@@ -94,11 +95,13 @@ public class AdminController : BaseApiController
             BadRequest("Failed To remove from Roles");
         }
 
-        return Ok("updated");
+        return Ok(new { result = "successfull" });
     }
     [HttpPost("add-person")]
-    public async Task<ActionResult<UserDto>> AddUser([FromBody] RegisterDto Newperson)
+    public async Task<ActionResult<UserDto>> AddPerson([FromBody] RegisterDto Newperson, [FromQuery] string roles)
     {
+        if (await _personRepository.userExist(Newperson.Email)) return BadRequest("Email is taken");
+        var SelectedRoles = roles.Split(",").ToArray();
         var person = new Person
         {
             DateOfBirth = Newperson.DateOfBirth,
@@ -106,8 +109,7 @@ public class AdminController : BaseApiController
             Email = Newperson.Email,
             Gender = Newperson.Gender,
             PhoneNumber = Newperson.PhoneNumber,
-
-            Adresses = Newperson.Addresses.Select(add =>
+            Addresses = Newperson.Addresses.Select(add =>
                                                 new Address
                                                 {
                                                     City = add.City,
@@ -115,18 +117,16 @@ public class AdminController : BaseApiController
                                                     Street = add.Street
                                                 }).ToList()
         };
-
-
         var result = await _userManager.CreateAsync(person, "Pa$$w0rd");
 
         if (!result.Succeeded)
         {
             return BadRequest(result.Errors);
         }
-        var RoleResult = await _userManager.AddToRoleAsync(person, "Member");
-        if (!RoleResult.Succeeded)
+        var AddRolesresult = await _userManager.AddToRolesAsync(person, SelectedRoles);
+        if (!AddRolesresult.Succeeded)
         {
-            return BadRequest(result.Errors);
+            BadRequest("failed to add to Roles");
         }
         return Ok(new { result = "successfull" });
 
@@ -138,7 +138,7 @@ public class AdminController : BaseApiController
         var user = await _personRepository.GetPersonbyIdAsync(id);
         if (_personRepository.DeletePerson(user))
         {
-            return Ok();
+            return Ok(new { result = "Deleted" });
         }
         return BadRequest("Failed to update user");
     }

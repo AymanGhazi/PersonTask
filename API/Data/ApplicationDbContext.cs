@@ -26,7 +26,7 @@ public class ApplicationDbContext : IdentityDbContext<Person,
         base.OnModelCreating(Builder);
 
         Builder.Entity<Person>()
-        .HasMany(a => a.Adresses)
+        .HasMany(a => a.Addresses)
         .WithOne(p => p.Person)
         .OnDelete(DeleteBehavior.Cascade);
 

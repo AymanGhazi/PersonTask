@@ -7,6 +7,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.interfaces;
+using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +21,17 @@ namespace API.Controllers
         private readonly SignInManager<Person> signInManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly IPersonRepository personRepository;
 
         public AccountController(
             UserManager<Person> userManager,
              SignInManager<Person> signInManager,
              ITokenService tokenService,
-             IMapper mapper)
+             IMapper mapper,
+             IPersonRepository personRepository)
         {
             _mapper = mapper;
+            this.personRepository = personRepository;
             this.userManager = userManager;
             this.signInManager = signInManager;
             _tokenService = tokenService;
@@ -39,7 +43,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             //see below
-            if (await userExist(registerDto.Email)) return BadRequest("Email is taken");
+            if (await personRepository.userExist(registerDto.Email)) return BadRequest("Email is taken");
 
             var user = _mapper.Map<Person>(registerDto);
             var result = await userManager.CreateAsync(user, registerDto.password);
@@ -51,7 +55,7 @@ namespace API.Controllers
             var RoleResult = await userManager.AddToRoleAsync(user, "Member");
             if (!RoleResult.Succeeded)
             {
-                return BadRequest(result.Errors);
+                return BadRequest(RoleResult.Errors);
             }
 
             return new UserDto
@@ -61,7 +65,8 @@ namespace API.Controllers
                 Token = await _tokenService.CreateToken(user),
                 AvatarId = user.AvatarId,
                 Gender = user.Gender,
-                Adresses = user.Adresses.Select(add =>
+                PhoneNumber = user.PhoneNumber,
+                Adresses = user.Addresses.Select(add =>
                                             new AddressDto
                                             {
                                                 City = add.City,
@@ -75,7 +80,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> login([FromBody] loginDto loginDto)
         {
             var user = await userManager.Users
-            .Include(p => p.Adresses)
+            .Include(p => p.Addresses)
             .SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
 
             if (user == null) return Unauthorized("Invalid Email");
@@ -95,7 +100,7 @@ namespace API.Controllers
                 Token = await _tokenService.CreateToken(user),
                 AvatarId = user.AvatarId,
                 Gender = user.Gender,
-                Adresses = user.Adresses.Select(add =>
+                Adresses = user.Addresses.Select(add =>
                                             new AddressDto
                                             {
                                                 City = add.City,
@@ -104,13 +109,5 @@ namespace API.Controllers
                                             }).ToList()
             };
         }
-
-        //search for exist username
-        private async Task<bool> userExist(string Email)
-        {
-            return await userManager.Users.AnyAsync(x => x.Email == Email.ToLower());
-        }
-
-
     }
 }

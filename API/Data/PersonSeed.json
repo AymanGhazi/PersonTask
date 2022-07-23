@@ -6,7 +6,8 @@
     "Gender": "male",
     "Email": "ayman@gmail.com",
     "PhoneNumber": "+20 (812) 413-3429",
-    "Adresses": [
+    "AvatarId":0,
+    "Addresses": [
       {
         "id": 0,
         "City": "Zarephath",
@@ -32,9 +33,10 @@
     "UserName": "sara",
     "DateOfBirth": "2014-01-01T23:28:56.782Z",
     "Gender": "female",
+    "AvatarId":2,
     "Email": "sara@gmail.com",
     "PhoneNumber": "+20 (941) 461-3447",
-    "Adresses": [
+    "Addresses": [
       {
         "id": 0,
         "City": "Goochland",
@@ -62,7 +64,8 @@
     "Gender": "female",
     "Email": "angelicaguerra@calcu.com",
     "PhoneNumber": "+20 (963) 459-3584",
-    "Adresses": [
+    "AvatarId":2,
+    "Addresses": [
       {
         "id": 0,
         "City": "Norfolk",
@@ -90,7 +93,8 @@
     "Gender": "male",
     "Email": "gordonguerra@calcu.com",
     "PhoneNumber": "+20 (956) 549-3612",
-    "Adresses": [
+    "AvatarId":0,
+    "Addresses": [
       {
         "id": 0,
         "City": "Fairhaven",
@@ -116,9 +120,10 @@
     "UserName": "Carlene",
     "DateOfBirth": "2014-01-01T23:28:56.782Z",
     "Gender": "female",
+    "AvatarId":2,
     "Email": "carleneguerra@calcu.com",
     "PhoneNumber": "+20 (881) 515-3281",
-    "Adresses": [
+    "Addresses": [
       {
         "id": 0,
         "City": "Makena",
@@ -146,7 +151,8 @@
     "Gender": "male",
     "Email": "whiteguerra@calcu.com",
     "PhoneNumber": "+20 (809) 486-2294",
-    "Adresses": [
+    "AvatarId":0,
+    "Addresses": [
       {
         "id": 0,
         "City": "Fostoria",
@@ -172,9 +178,10 @@
     "UserName": "Key",
     "DateOfBirth": "2014-01-01T23:28:56.782Z",
     "Gender": "male",
+    "AvatarId":0,
     "Email": "keyguerra@calcu.com",
     "PhoneNumber": "+20 (983) 430-2067",
-    "Adresses": [
+    "Addresses": [
       {
         "id": 0,
         "City": "Crayne",
@@ -202,7 +209,8 @@
     "Gender": "female",
     "Email": "doreenguerra@calcu.com",
     "PhoneNumber": "+20 (856) 559-2329",
-    "Adresses": [
+    "AvatarId":2,
+    "Addresses": [
       {
         "id": 0,
         "City": "Bartley",
@@ -230,7 +238,8 @@
     "Gender": "female",
     "Email": "maryannguerra@calcu.com",
     "PhoneNumber": "+20 (887) 494-2304",
-    "Adresses": [
+    "AvatarId":2,
+    "Addresses": [
       {
         "id": 0,
         "City": "Gwynn",
@@ -258,7 +267,8 @@
     "Gender": "male",
     "Email": "ruizguerra@calcu.com",
     "PhoneNumber": "+20 (858) 459-2782",
-    "Adresses": [
+    "AvatarId":0,
+    "Addresses": [
       {
         "id": 0,
         "City": "Aguila",
@@ -285,8 +295,9 @@
     "DateOfBirth": "2014-01-01T23:28:56.782Z",
     "Gender": "female",
     "Email": "antoniaguerra@calcu.com",
+    "AvatarId":2,
     "PhoneNumber": "+20 (828) 568-3565",
-    "Adresses": [
+    "Addresses": [
       {
         "id": 0,
         "City": "Nutrioso",
@@ -314,7 +325,8 @@
     "Gender": "female",
     "Email": "fayguerra@calcu.com",
     "PhoneNumber": "+20 (859) 482-2366",
-    "Adresses": [
+    "AvatarId":2,
+    "Addresses": [
       {
         "id": 0,
         "City": "Davenport",
@@ -342,7 +354,8 @@
     "Gender": "male",
     "Email": "waltersguerra@calcu.com",
     "PhoneNumber": "+20 (888) 467-2369",
-    "Adresses": [
+    "AvatarId":0,
+    "Addresses": [
       {
         "id": 0,
         "City": "Loretto",
@@ -369,8 +382,9 @@
     "DateOfBirth": "2014-01-01T23:28:56.782Z",
     "Gender": "female",
     "Email": "estelleguerra@calcu.com",
+    "AvatarId":2,
     "PhoneNumber": "+20 (930) 423-3793",
-    "Adresses": [
+    "Addresses": [
       {
         "id": 0,
         "City": "Harrison",
@@ -398,7 +412,8 @@
     "Gender": "male",
     "Email": "mcleodguerra@calcu.com",
     "PhoneNumber": "+20 (934) 433-3081",
-    "Adresses": [
+    "AvatarId":0,
+    "Addresses": [
       {
         "id": 0,
         "City": "Stevens",
@@ -426,7 +441,8 @@
     "Gender": "male",
     "Email": "mccrayguerra@calcu.com",
     "PhoneNumber": "+20 (887) 425-3732",
-    "Adresses": [
+    "AvatarId":0,
+    "Addresses": [
       {
         "id": 0,
         "City": "Bridgetown",
@@ -454,7 +470,8 @@
     "Gender": "female",
     "Email": "angeliqueguerra@calcu.com",
     "PhoneNumber": "+20 (996) 569-2074",
-    "Adresses": [
+    "AvatarId":2,
+    "Addresses": [
       {
         "id": 0,
         "City": "Waverly",
@@ -482,7 +499,8 @@
     "Gender": "male",
     "Email": "odomguerra@calcu.com",
     "PhoneNumber": "+20 (834) 452-3855",
-    "Adresses": [
+    "AvatarId":0,
+    "Addresses": [
       {
         "id": 0,
         "City": "Gila",

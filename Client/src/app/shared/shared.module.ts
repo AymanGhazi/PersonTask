@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepicker, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
 import { FeatherModule } from 'angular-feather';
 import { Camera, Heart, Github,Edit,Trash2 } from 'angular-feather/icons';
@@ -44,7 +44,7 @@ const icons = {
   ]
     ,
   imports: [
-CommonModule,
+  CommonModule,
   RouterModule, 
   NgbModule,
   FeatherModule.pick(icons),
@@ -63,8 +63,7 @@ CommonModule,
   ModalModule,
   FormsModule,
   MatDatepickerModule,
-  MatNativeDateModule
-  
+  MatNativeDateModule,
   ],exports:[ 
   NavbarComponent,
   FooterComponent,
@@ -82,7 +81,8 @@ CommonModule,
   MatRadioModule,
   FormsModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  NgbDatepicker
 
   ]
 })

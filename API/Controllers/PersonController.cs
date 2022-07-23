@@ -38,22 +38,7 @@ public class PersonController : BaseApiController
         return Ok(users);
 
     }
-    [HttpGet]
-    //get list of users with pagination
-    public async Task<ActionResult<pageList<PersonDto>>> GetUsers([FromQuery] PersonParams userParams)
-    {
-
-        //userParams.CurrentUserId = User.GetuserID();
-
-        var users = await _personRepository.GetPersonsAsyncPN(userParams);
-
-        Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
-
-        // var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
-        return Ok(users);
-    }
-
-
+    
     [HttpGet("{id}")]
     public async Task<ActionResult<PersonDto>> GetUserByID(int Id) //get list of users
     {
@@ -61,26 +46,5 @@ public class PersonController : BaseApiController
         var mapping = _mapper.Map<PersonDto>(selectedPerson);
         return mapping;
     }
-
-
-    [HttpPut("{id}")]
-    public async Task<ActionResult> updatePerson(PersonUpdateDto PersonUpdateDto, int Id)
-    {
-        var user = await _personRepository.GetPersonbyIdAsync(Id);
-        //mapping the param into the user
-        var mapping = _mapper.Map(PersonUpdateDto, user);
-        _personRepository.update(mapping);
-        if (_personRepository.SaveChanages())
-        {
-            return Ok(PersonUpdateDto);
-        }
-        return BadRequest("Failed to update user");
-    }
-
-
-
-
-
-
 
 }

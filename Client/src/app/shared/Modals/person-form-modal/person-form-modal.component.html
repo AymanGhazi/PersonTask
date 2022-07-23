@@ -4,7 +4,7 @@
       <h5 class="card-title">Edit Person</h5>
     </div>
     <div class="card-body">
-      <form #EditForm="ngForm" (ngSubmit)="submit()">
+      <form #EditForm="ngForm">
         <div class="row">
           <div class="col">
             <div class="form-group">
@@ -81,6 +81,37 @@
             </div>
           </div>
         </div>
+        <div>
+          <div class="form-group">
+            <input
+              #dateOfBirth="ngModel"
+              type="date"
+              [(ngModel)]="person.dateOfBirth"
+              name="dateOfBirth"
+              class="form-control"
+              placeholder="{{ person.dateOfBirth }}"
+              bsDatepicker
+            />
+            <div
+              *ngIf="dateOfBirth.errors?.['required']"
+              class="invalid-feedback"
+            >
+              Birth Date is required
+            </div>
+          </div>
+
+          <section class="example-section">
+            <label class="example-margin">Gender:</label>
+            <mat-radio-group [(ngModel)]="person.gender" name="gender">
+              <mat-radio-button class="example-margin" value="Male"
+                >Male</mat-radio-button
+              >
+              <mat-radio-button class="example-margin" value="Female"
+                >Female</mat-radio-button
+              >
+            </mat-radio-group>
+          </section>
+        </div>
         <div class="row">
           <div class="col-md-12">
             <section class="example-section">
@@ -149,14 +180,14 @@
               </div>
             </div>
           </ng-container>
-          <ng-container *ngIf="addresses.length == 0 || NewAddress.length > 1">
+          <ng-container *ngIf="addresses.length == 0 || NewAddress != null">
             <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>City</label>
                 <input
                   type="text"
                   name="city"
-                  [(ngModel)]="NewAddress[0].city"
+                  [(ngModel)]="NewAddress.city"
                   class="form-control"
                   placeholder="City"
                 />
@@ -169,7 +200,7 @@
                 <input
                   type="text"
                   name="country"
-                  [(ngModel)]="NewAddress[0].country"
+                  [(ngModel)]="NewAddress.country"
                   class="form-control"
                   placeholder="Country"
                 />
@@ -180,7 +211,7 @@
                 <label>Street</label>
                 <input
                   name="street"
-                  [(ngModel)]="NewAddress[0].street"
+                  [(ngModel)]="NewAddress.street"
                   type="text"
                   class="form-control"
                   name="street"
@@ -203,7 +234,7 @@
           <div class="update ml-auto mr-auto">
             <button
               (click)="submit()"
-              type="submit"
+              type="button"
               class="btn btn-primary btn-round"
             >
               Update Profile

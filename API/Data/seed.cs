@@ -38,6 +38,7 @@ namespace API.Data
 
             var admin = new Person
             {
+
                 UserName = "admin",
 
                 Email = "admin@gmail.com"

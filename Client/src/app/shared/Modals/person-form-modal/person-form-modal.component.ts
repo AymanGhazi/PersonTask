@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Self } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { address } from 'src/app/Models/Address';
 import { Person } from './../../../Models/person';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { ControlValueAccessor, NgControl, FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-person-form-modal',
   templateUrl: './person-form-modal.component.html',
@@ -13,39 +15,39 @@ export class PersonFormModalComponent implements OnInit{
   person!: Person;
   roles!:any[];
   addresses!:any[];
-  NewAddress:address[]=[]
+  NewAddress!:address
   IsRoleSelected=false
-  constructor(
-    public BsModalRef: BsModalRef) {
-     }
+
+    constructor(public BsModalRef: BsModalRef) { 
+     
+  }
+ 
 
   ngOnInit(): void {
       this.NoRolesSelected()
-     this.NewAddress=[{
-      city:"",
-      country:"",
-      street:""
-     }]
+      
   }
   NoRolesSelected(){
     this.IsRoleSelected=Object.values(this.roles).some(v=>v.checked ==true)
   }
   addAddress(){
-    this.NewAddress.push({
+    this.NewAddress={
       city:"",
       country:"",
       street:""
-     })
+     }
   }
+
   submit(){
     var personToBeUpdated=this.person;
     if (this.addresses.length==0) {
-      
-      personToBeUpdated.addresses=this.NewAddress
-    }else{
+      personToBeUpdated.addresses.push(this.NewAddress)
+    }else if (this.NewAddress !=null ) {
+    this.addresses.push(this.NewAddress)
     personToBeUpdated.addresses=this.addresses;
     }
     personToBeUpdated.roles=this.roles
+    console.log(personToBeUpdated);
     this.updateSelectedRoles.emit(personToBeUpdated);
     this.BsModalRef.hide();    
   }

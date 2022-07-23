@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
       cpassword: ['', Validators.required],
       PhoneNumber: ['', Validators.required],
       Gender: ['Male', Validators.required],
+      dateOfBirth: ['', Validators.required],
       city: [''],
       country: [''],
       street: [''],

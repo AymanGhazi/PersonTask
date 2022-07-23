@@ -12,9 +12,12 @@ public interface IPersonRepository
 {
     void update(Person person);
     bool DeletePerson(Person person);
+    Task<bool> userExist(string Email);
     Task<IEnumerable<PersonDto>> GetPersonsAsync();
     Task<Person> GetPersonbyIdAsync(int id);
     Task<PersonDto> GetPersonbyUserNameAsync(string UserName);
-    Task<pageList<PersonDto>> GetPersonsAsyncPN(PersonParams userparams);
+
+
+
     bool SaveChanages();
 }

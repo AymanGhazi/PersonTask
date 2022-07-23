@@ -4,7 +4,7 @@
       <h5 class="card-title">Edit Person</h5>
     </div>
     <div class="card-body">
-      <form #EditForm="ngForm" (ngSubmit)="submit()">
+      <form #EditForm="ngForm">
         <div class="row">
           <div class="col">
             <div class="form-group">
@@ -76,32 +76,31 @@
                   phoneNumber.errors?.['required']
                 "
               >
-                Email is required
+                Phone number is required
               </span>
             </div>
           </div>
         </div>
 
-        <input
-          matInput
-          [matDatepicker]="picker"
-          [(ngModel)]="person.dateOfBirth"
-          name="dateOfBirth"
-        />
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker class="datepicker"></mat-datepicker>
-        <section class="example-section">
-          <label class="example-margin">Gender:</label>
-          <mat-radio-group [(ngModel)]="person.gender" name="gender">
-            <mat-radio-button class="example-margin" value="Male"
-              >Male</mat-radio-button
-            >
-            <mat-radio-button class="example-margin" value="Female"
-              >Female</mat-radio-button
-            >
-          </mat-radio-group>
-        </section>
+        <div class="form-group">
+          <input
+            #dateOfBirth="ngModel"
+            type="date"
+            [(ngModel)]="person.dateOfBirth"
+            name="dateOfBirth"
+            class="form-control"
+            placeholder="{{ person.dateOfBirth }}"
+            required
+            bsDatepicker
+          />
+          <div
+            *ngIf="(dateOfBirth.touched  || EditForm.submitted)
+            &&dateOfBirth.errors?.['required']"
+            class="text-danger"
+          >
+            Birth Date is required
+          </div>
+        </div>
         <div class="row">
           <div class="col-md-12">
             <section class="example-section">
@@ -130,53 +129,15 @@
           </div>
         </div>
         <div class="row">
-          <ng-container *ngFor="let address of addresses; let index = index">
-            <div class="col-md-4 pr-1">
-              <div class="form-group">
-                <label>City</label>
-                <input
-                  type="text"
-                  name="city-{{ index }}"
-                  [(ngModel)]="addresses[index].city"
-                  class="form-control"
-                  placeholder="City"
-                />
-              </div>
-            </div>
-
-            <div class="col-md-4 px-1">
-              <div class="form-group">
-                <label>Country</label>
-                <input
-                  type="text"
-                  name="country-{{ index }}"
-                  [(ngModel)]="addresses[index].country"
-                  class="form-control"
-                  placeholder="Country"
-                />
-              </div>
-            </div>
-            <div class="col-md-4 pl-1">
-              <div class="form-group">
-                <label>Street</label>
-                <input
-                  name="street-{{ index }}"
-                  [(ngModel)]="addresses[index].street"
-                  type="text"
-                  class="form-control"
-                  name="street"
-                  placeholder="Street"
-                />
-              </div>
-            </div>
-          </ng-container>
           <ng-container *ngIf="addresses.length == 0 || NewAddress.length > 1">
             <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>City</label>
                 <input
+                  #city="ngModel"
                   type="text"
                   name="city"
+                  required
                   [(ngModel)]="NewAddress[0].city"
                   class="form-control"
                   placeholder="City"
@@ -190,17 +151,22 @@
                 <input
                   type="text"
                   name="country"
+                  required
+                  #country="ngModel"
                   [(ngModel)]="NewAddress[0].country"
                   class="form-control"
                   placeholder="Country"
                 />
               </div>
             </div>
+
             <div class="col-md-4 pl-1">
               <div class="form-group">
                 <label>Street</label>
                 <input
                   name="street"
+                  required
+                  #street="ngModel"
                   [(ngModel)]="NewAddress[0].street"
                   type="text"
                   class="form-control"
@@ -209,20 +175,25 @@
                 />
               </div>
             </div>
-          </ng-container>
-          <div class="row d-flex">
-            <button
-              type="button"
-              (click)="addAddress()"
-              class="addButton btn btn-primary btn-round"
+            <span
+              class="text-danger"
+              *ngIf="
+                  (street.touched ||city.touched ||country.touched|| EditForm.submitted) &&
+                  street.errors?.['required']
+                  &&
+                  city.errors?.['required']
+                  &&
+                  country.errors?.['required']
+                "
             >
-              <i _ngcontent-hop-c112="" class="nc-icon nc-simple-add"></i>
-            </button>
-          </div>
+              Address is required
+            </span>
+          </ng-container>
         </div>
         <div class="row">
           <div class="update ml-auto mr-auto">
             <button
+              [disabled]="EditForm.invalid"
               (click)="submit()"
               type="submit"
               class="btn btn-primary btn-round"

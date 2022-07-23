@@ -1,21 +1,14 @@
-import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {  Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Subject, Subscription } from 'rxjs';
 import { Person } from 'src/app/Models/person';
 import { PersonService } from 'src/app/Services/person-service.service';
 import { ConfirmationModalComponent } from './../../shared/Modals/confirmation-modal/confirmation-modal.component';
 import { PersonFormModalComponent } from './../../shared/Modals/person-form-modal/person-form-modal.component';
-import {DataTableDirective} from 'angular-datatables';
-import { AccountService } from './../../Services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from './../../Services/admin.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NewPersonModalComponent } from 'src/app/shared/Modals/new-person-modal/new-person-modal.component';
-
-
 @Component({
     selector: 'dashboard-cmp',
     templateUrl: 'dashboard.component.html',
@@ -35,9 +28,9 @@ export class DashboardComponent implements OnInit,OnDestroy{
    
     ngOnInit(): void {
       //Get Current User
-      this.currentUser=JSON.parse(localStorage.getItem('user')||"");
+      this.currentUser=JSON.parse(localStorage.getItem('user')||"null");
       //IsAdmin
-   if (this.currentUser.roles.find(a=>a.includes("Admin"))) {
+   if (this.currentUser?.roles.find(a=>a.includes("Admin"))) {
       this.IsAdmin=true
       }
     //TableOptions
@@ -74,7 +67,6 @@ export class DashboardComponent implements OnInit,OnDestroy{
   edit(person: Person) {
     this.adminService.getPersonWithRoles(person.id).subscribe(result=>{
         person.roles=result.roles
-      
         const config = {
       class:'modal-dialog-centered',
       initialState:{
@@ -88,17 +80,49 @@ export class DashboardComponent implements OnInit,OnDestroy{
 
     this.modalRef.content?.updateSelectedRoles.subscribe((values:Person)=>{
 
- const rolestosend={
-    roles:[...values.roles.filter(el=>el.checked==true).map(el=>el.name)]
-  };
+  const rolestosend={
+      roles:[...values.roles.filter(el=>el.checked==true).map(el=>el.name)]
+    };
+  console.log(rolestosend);
+  
       this.adminService.updatePerson(person.id,values,rolestosend.roles).subscribe(()=>{
       this.toaster.success("updated Successfully","Success",{positionClass:"toast-bottom-left"})
+      this.getPersons();
+      window.alert=function(){}
       person=values
-      person.roles=[...values.roles]
+      person.roles=[rolestosend.roles]
       person.addresses=[...values.addresses]
     })
   })
   })
+    }
+    
+    newPerson(){
+      const config = {
+      class:'modal-dialog-centered',
+      initialState:{
+        roles: [
+         {name:"Admin",value:"Admin",checked:false},
+         {name:"Moderator",value:"Moderator",checked:false},
+         {name:"Member",value:"Member",checked:true}
+              ]
+        }
+      }
+    this.modalRef=this.modalService.show(NewPersonModalComponent,config);
+    this.modalRef.content?.updateSelectedRoles.subscribe((values:Person)=>{
+    const rolestosend={
+      roles:[...values.roles.filter(el=>el.checked==true).map(el=>el.name)]
+    };
+
+      values.roles=[];
+    this.adminService.AddPerson(values,rolestosend.roles).subscribe((response:any)=>{
+    if (response.result=="successfull") {
+      this.toaster.success("Added")
+      this.getPersons();
+      window.alert=function(){}
+               }
+           })
+       });
     }
     private GetRolesArray(person:Person){
       const RoleToGet:any=[];
@@ -127,23 +151,6 @@ export class DashboardComponent implements OnInit,OnDestroy{
       
       return RoleToGet;
       
-    }
-    newPerson(){
-     
-      
-      const config = {
-      class:'modal-dialog-centered',
-      initialState:{
-        roles: [
-         {name:"Admin",value:"Admin",checked:false},
-         {name:"Moderator",value:"Moderator",checked:false},
-         {name:"Member",value:"Member",checked:true}
-              ]
-        }
-      }
-    this.modalRef=this.modalService.show(NewPersonModalComponent,config);
-    this.modalRef.content?.updateSelectedRoles.subscribe((values:Person)=>{
-    });
     }
  
   ngOnDestroy(): void {

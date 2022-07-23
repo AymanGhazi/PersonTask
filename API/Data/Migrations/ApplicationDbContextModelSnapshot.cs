@@ -268,7 +268,7 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Address", b =>
                 {
                     b.HasOne("API.Data.Person", "Person")
-                        .WithMany("Adresses")
+                        .WithMany("Addresses")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -333,7 +333,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Data.Person", b =>
                 {
-                    b.Navigation("Adresses");
+                    b.Navigation("Addresses");
 
                     b.Navigation("Roles");
                 });

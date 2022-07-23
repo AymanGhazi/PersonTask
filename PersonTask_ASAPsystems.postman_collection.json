@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "f9f830ec-b57d-4f44-bce9-ca21e63144f9",
+		"name": "PersonTask_ASAPsystems",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20076233"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userName\": \"Eslam Ghazi\",\r\n  \"dateOfBirth\": \"0001-01-01T00:00:00\",\r\n  \"phoneNumber\": \"01010359722\",\r\n  \"email\": \"Eslam12@gmail.com\",\r\n  \"password\": \"Pa$$word0\",\r\n  \"city\": \"cairo\",\r\n  \"PhoneNumber\":\"01010359722\",\r\n  \"Gender\":\"Male\",\r\n  \"addresses\":[{\r\n      \"city\":\"cairo\",\r\n      \"country\":\"Egypt\",\r\n      \"street\":\"tahrir\"\r\n  }]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7166/api/Account/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7166",
+					"path": [
+						"api",
+						"Account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n  \"email\": \"ayman@gmail.com\",\r\n  \"password\": \"Pa$$w0rd\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7166/api/Account/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7166",
+					"path": [
+						"api",
+						"Account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPersonByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7166/api/Person/15",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7166",
+					"path": [
+						"api",
+						"Person",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPersons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7166/api/Person/GetPersons",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7166",
+					"path": [
+						"api",
+						"Person",
+						"GetPersons"
+					],
+					"query": [
+						{
+							"key": "CurrentUserId",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "Gender",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "MinAge",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "MaxAge",
+							"value": "25",
+							"disabled": true
+						},
+						{
+							"key": "PageNumber",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "PageSize",
+							"value": "25",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPersonWithRole",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7166/api/Person/GetPersons",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7166",
+					"path": [
+						"api",
+						"Person",
+						"GetPersons"
+					],
+					"query": [
+						{
+							"key": "CurrentUserId",
+							"value": "5",
+							"disabled": true
+						},
+						{
+							"key": "Gender",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "MinAge",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "MaxAge",
+							"value": "25",
+							"disabled": true
+						},
+						{
+							"key": "PageNumber",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "PageSize",
+							"value": "25",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit-Person",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"avatarId\": 0,\r\n    \"userName\": \"admin\",\r\n    \"email\": \"admin@gmail.com\",\r\n    \"age\": 2021,\r\n    \"dateOfBirth\": \"0001-01-01T00:00:00\",\r\n    \"created\": \"2022-07-23T01:24:13.1674032\",\r\n    \"gender\": \"Male\",\r\n    \"phoneNumber\": \"01010359722\",\r\n    \"addresses\": [\r\n        {\r\n            \"city\": \"aaaa\",\r\n            \"country\": \"aaaaa\",\r\n            \"street\": \"aaaaaa\"\r\n        },\r\n          {\r\n            \"city\": \"sssss\",\r\n            \"country\": \"ssss\",\r\n            \"street\": \"ssssss\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7166/api/admin/edit-Person/1?roles=Admin,Moderator,Member",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7166",
+					"path": [
+						"api",
+						"admin",
+						"edit-Person",
+						"1"
+					],
+					"query": [
+						{
+							"key": "roles",
+							"value": "Admin,Moderator,Member"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addPerson",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"avatarId\": 3,\r\n    \"userName\": \"Hary\",\r\n    \"age\": 2022,\r\n    \"dateOfBirth\": \"0001-01-01T00:00:00\",\r\n    \"created\": \"2022-07-19T19:06:22.9680673\",\r\n    \"gender\": \"female\",\r\n    \"PhoneNumber\": \"01010359722\",\r\n    \"adresses\":[\r\n        {\r\n            \"city\": \"Cairo\",\r\n            \"country\": \"Egypt\",\r\n            \"street\": \"Tahrir\"\r\n        }\r\n    ]\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7166/api/Person/15",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7166",
+					"path": [
+						"api",
+						"Person",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePerson",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7166/api/admin/26",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7166",
+					"path": [
+						"api",
+						"admin",
+						"26"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

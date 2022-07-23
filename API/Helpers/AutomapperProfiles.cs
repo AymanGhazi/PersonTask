@@ -17,21 +17,21 @@ namespace API.Helpers
         {
 
             CreateMap<Person, PersonDto>()
-               .ForMember(dest => dest.Adresses, opt => opt.MapFrom(src => src.Adresses))
+               .ForMember(dest => dest.Addresses, opt => opt.MapFrom(src => src.Addresses))
                .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalcAge()));
 
             CreateMap<PersonDto, Person>()
-            .ForMember(a => a.Adresses, opt => opt.MapFrom(a => a.Adresses));
-           
+            .ForMember(a => a.Addresses, opt => opt.MapFrom(a => a.Addresses));
+
 
             CreateMap<Address, AddressDto>();
             CreateMap<AddressDto, Address>();
 
             CreateMap<PersonUpdateDto, Person>()
-            .ForMember(a => a.Adresses, opt => opt.MapFrom(src => src.Adresses));
+            .ForMember(a => a.Addresses, opt => opt.MapFrom(src => src.Addresses));
 
             CreateMap<RegisterDto, Person>()
-             .ForMember(a => a.Adresses, opt => opt.MapFrom(src => src.Addresses));
+             .ForMember(a => a.Addresses, opt => opt.MapFrom(src => src.Addresses));
 
 
         }
