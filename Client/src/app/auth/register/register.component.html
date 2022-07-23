@@ -41,6 +41,7 @@
                   <mat-error
                     *ngIf="
                       authForm.get('email')?.hasError('required') ||
+                      authForm.get('email')?.hasError('email') ||
                       authForm.get('email')?.touched
                     "
                   >
