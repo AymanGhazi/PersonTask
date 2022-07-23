@@ -68,6 +68,12 @@
                   >
                     Password is required
                   </mat-error>
+                  <mat-error
+                    *ngIf="authForm.get('password')?.hasError('pattern')"
+                  >
+                    password must be at least 8 characters long , have 1
+                    uppercase letter, have 1 lowercase letter have 1 number
+                  </mat-error>
                 </mat-form-field>
               </div>
             </div>
