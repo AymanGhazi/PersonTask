@@ -89,7 +89,7 @@
               [(ngModel)]="person.dateOfBirth"
               name="dateOfBirth"
               class="form-control"
-              placeholder="{{ person.dateOfBirth }}"
+              placeholder="{{ person.dateOfBirth | date }}"
               bsDatepicker
             />
             <div
@@ -103,10 +103,10 @@
           <section class="example-section">
             <label class="example-margin">Gender:</label>
             <mat-radio-group [(ngModel)]="person.gender" name="gender">
-              <mat-radio-button class="example-margin" value="Male"
+              <mat-radio-button class="example-margin" value="male"
                 >Male</mat-radio-button
               >
-              <mat-radio-button class="example-margin" value="Female"
+              <mat-radio-button class="example-margin" value="female"
                 >Female</mat-radio-button
               >
             </mat-radio-group>

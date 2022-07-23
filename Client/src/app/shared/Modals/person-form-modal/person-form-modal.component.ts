@@ -25,6 +25,8 @@ export class PersonFormModalComponent implements OnInit{
 
   ngOnInit(): void {
       this.NoRolesSelected()
+      console.log(this.person);
+      
       
   }
   NoRolesSelected(){
