@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
         [Validators.required],
       ],
       password: ['', Validators.required],
-      cpassword: ['',Validators.required, this.matchValues('password')],
+      cpassword: [null,[Validators.required, this.matchValues('password')]],
       PhoneNumber: ['', Validators.required],
       Gender: ['Male', Validators.required],
       dateOfBirth: ['', Validators.required],
