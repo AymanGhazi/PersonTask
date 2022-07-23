@@ -21,7 +21,7 @@
               <span
                 class="text-danger"
                 *ngIf="
-                  (userName.touched || EditForm.submitted) &&
+                  (userName.touched) &&
                   userName.errors?.['required']
                 "
               >
@@ -47,7 +47,7 @@
               <span
                 class="text-danger"
                 *ngIf="
-                  (email.touched || EditForm.submitted) &&
+                  (email.touched) &&
                   email.errors?.['required']
                 "
               >
@@ -94,13 +94,24 @@
             bsDatepicker
           />
           <div
-            *ngIf="(dateOfBirth.touched  || EditForm.submitted)
+            *ngIf="(dateOfBirth.touched )
             &&dateOfBirth.errors?.['required']"
             class="text-danger"
           >
             Birth Date is required
           </div>
         </div>
+        <section class="example-section">
+          <label class="example-margin">Gender:</label>
+          <mat-radio-group [(ngModel)]="person.gender" name="gender">
+            <mat-radio-button class="example-margin" value="male"
+              >Male</mat-radio-button
+            >
+            <mat-radio-button class="example-margin" value="female"
+              >Female</mat-radio-button
+            >
+          </mat-radio-group>
+        </section>
         <div class="row">
           <div class="col-md-12">
             <section class="example-section">
@@ -198,7 +209,7 @@
               type="submit"
               class="btn btn-primary btn-round"
             >
-              Update Profile
+              create Profile
             </button>
           </div>
         </div>

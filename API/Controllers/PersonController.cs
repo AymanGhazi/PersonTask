@@ -31,7 +31,7 @@ public class PersonController : BaseApiController
 
 
     [HttpGet("GetPersons")]
-    public async Task<ActionResult<List<PersonDto>>> GetPersons() //get list of users
+    public async Task<ActionResult<IEnumerable<PersonDto>>> GetPersons() //get list of users
     {
         // userParams.CurrentUserId = User.GetuserName();
         var users = await _personRepository.GetPersonsAsync();

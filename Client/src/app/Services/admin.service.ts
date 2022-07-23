@@ -22,7 +22,7 @@ user!:Person
     }
   updatePerson(id:number,Person:Person,roles:string[]){
     
-    return this.HttpClient.post(this.baseApi+'/api/admin/edit-Person/'+id+"?roles="+roles,Person)
+    return this.HttpClient.post(this.baseApi+'/api/admin/edit-Person?roles='+roles,Person)
     }
   remove(id:number) {
    return this.HttpClient.delete(this.baseApi+"/api/admin/"+id)

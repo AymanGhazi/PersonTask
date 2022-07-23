@@ -52,11 +52,11 @@ public class AdminController : BaseApiController
         return Ok(users);
     }
     //[Authorize(Policy = "RequireAdminRole")]
-    [HttpPost("edit-person/{id}")]
-    public async Task<ActionResult> EditPerson(int id, [FromBody] EditPerson person, [FromQuery] string roles)
+    [HttpPost("edit-person")]
+    public async Task<ActionResult> EditPerson([FromBody] EditPerson person, [FromQuery] string roles)
     {
         var SelectedRoles = roles.Split(",").ToArray();
-        var user = await _userManager.FindByIdAsync(id.ToString());
+        var user = await _userManager.FindByIdAsync(person.Id.ToString());
         if (user == null)
         {
             return NotFound();

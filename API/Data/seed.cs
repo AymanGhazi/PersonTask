@@ -40,7 +40,12 @@ namespace API.Data
             {
 
                 UserName = "admin",
-
+                Addresses = new List<Address>()
+                {
+                new Address(){City="cairo",Country="Egypt",Street="Tahrir"}
+                },
+                Gender = "male",
+                PhoneNumber = "01010359722",
                 Email = "admin@gmail.com"
             };
             await UserManager.CreateAsync(admin, "Pa$$w0rd");

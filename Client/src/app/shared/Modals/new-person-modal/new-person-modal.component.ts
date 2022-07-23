@@ -57,7 +57,6 @@ export class NewPersonModalComponent implements OnInit {
     }else{
     personToBeCreated.addresses=this.addresses;
     }
-    console.log(personToBeCreated);
  
    
     this.updateSelectedRoles.emit(personToBeCreated);

@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { DashboardComponent } from './layouts/pages/dashboard/dashboard.component';
 
 const routes: Routes = [
     {path: '',component:LoginComponent,},

@@ -87,10 +87,12 @@
               #dateOfBirth="ngModel"
               type="date"
               [(ngModel)]="person.dateOfBirth"
+              data-date-format="MM-dd-yyyy"
               name="dateOfBirth"
               class="form-control"
-              placeholder="{{ person.dateOfBirth | date }}"
+              placeholder="{{ person.dateOfBirth | date: 'MM-dd-yyyy' }}"
               bsDatepicker
+              bsConfig="{ dateInputFormat: 'MM-dd-yyyy' }"
             />
             <div
               *ngIf="dateOfBirth.errors?.['required']"

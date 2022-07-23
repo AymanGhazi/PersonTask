@@ -19,15 +19,12 @@ export class PersonFormModalComponent implements OnInit{
   IsRoleSelected=false
 
     constructor(public BsModalRef: BsModalRef) { 
-     
+      this.addAddress();
   }
  
 
   ngOnInit(): void {
       this.NoRolesSelected()
-      console.log(this.person);
-      
-      
   }
   NoRolesSelected(){
     this.IsRoleSelected=Object.values(this.roles).some(v=>v.checked ==true)
@@ -44,12 +41,13 @@ export class PersonFormModalComponent implements OnInit{
     var personToBeUpdated=this.person;
     if (this.addresses.length==0) {
       personToBeUpdated.addresses.push(this.NewAddress)
-    }else if (this.NewAddress !=null ) {
+    }else if (this.NewAddress.city!='' ) {
     this.addresses.push(this.NewAddress)
     personToBeUpdated.addresses=this.addresses;
+     console.log(personToBeUpdated);
+
     }
     personToBeUpdated.roles=this.roles
-    console.log(personToBeUpdated);
     this.updateSelectedRoles.emit(personToBeUpdated);
     this.BsModalRef.hide();    
   }

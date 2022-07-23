@@ -1,14 +1,14 @@
 import {  Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
-import { Person } from 'src/app/Models/person';
-import { PersonService } from 'src/app/Services/person-service.service';
-import { ConfirmationModalComponent } from './../../shared/Modals/confirmation-modal/confirmation-modal.component';
-import { PersonFormModalComponent } from './../../shared/Modals/person-form-modal/person-form-modal.component';
 import { ToastrService } from 'ngx-toastr';
-import { AdminService } from './../../Services/admin.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NewPersonModalComponent } from 'src/app/shared/Modals/new-person-modal/new-person-modal.component';
+import { Person } from '../../../Models/person';
+import { PersonService } from './../../../Services/person-service.service';
+import { AdminService } from '../../../Services/admin.service';
+import { ConfirmationModalComponent } from '../../../shared/Modals/confirmation-modal/confirmation-modal.component';
+import { PersonFormModalComponent } from '../../../shared/Modals/person-form-modal/person-form-modal.component';
+import { NewPersonModalComponent } from '../../../shared/Modals/new-person-modal/new-person-modal.component';
 @Component({
     selector: 'dashboard-cmp',
     templateUrl: 'dashboard.component.html',
@@ -37,6 +37,10 @@ export class DashboardComponent implements OnInit,OnDestroy{
     this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 2,
+        serverSide: true,
+        processing: true,
+        searching: true,
+
       };
 
     this.getPersons()
@@ -83,15 +87,14 @@ export class DashboardComponent implements OnInit,OnDestroy{
   const rolestosend={
       roles:[...values.roles.filter(el=>el.checked==true).map(el=>el.name)]
     };
-  console.log(rolestosend);
-  
-      this.adminService.updatePerson(person.id,values,rolestosend.roles).subscribe(()=>{
+    values.roles=[]
+    this.adminService.updatePerson(person.id,values,rolestosend.roles).subscribe((result)=>{
+      if (result) {
       this.toaster.success("updated Successfully","Success",{positionClass:"toast-bottom-left"})
       this.getPersons();
-      window.alert=function(){}
-      person=values
-      person.roles=[rolestosend.roles]
-      person.addresses=[...values.addresses]
+      window.alert=function(){};
+      }
+      
     })
   })
   })
@@ -113,11 +116,10 @@ export class DashboardComponent implements OnInit,OnDestroy{
     const rolestosend={
       roles:[...values.roles.filter(el=>el.checked==true).map(el=>el.name)]
     };
-
       values.roles=[];
     this.adminService.AddPerson(values,rolestosend.roles).subscribe((response:any)=>{
     if (response.result=="successfull") {
-      this.toaster.success("Added")
+     this.toaster.success("Added Successfully","Success",{positionClass:"toast-bottom-left"})
       this.getPersons();
       window.alert=function(){}
                }
