@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import {  Router } from '@angular/router';
 import { AccountService } from './../../Services/account.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,7 +17,6 @@ export class RegisterComponent implements OnInit {
   chide = true;
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private accountService:AccountService,
     private Toastr:ToastrService
@@ -30,14 +29,24 @@ export class RegisterComponent implements OnInit {
         [Validators.required],
       ],
       password: ['', Validators.required],
-      cpassword: ['', Validators.required],
+      cpassword: ['',Validators.required, this.matchValues('password')],
       PhoneNumber: ['', Validators.required],
       Gender: ['Male', Validators.required],
       dateOfBirth: ['', Validators.required],
-      city: [''],
-      country: [''],
-      street: [''],
+      city: ['',Validators.required],
+      country: ['',Validators.required],
+      street: ['',Validators.required],
     });
+     this.authForm.controls?.["password"].valueChanges.subscribe(()=>{
+     this.authForm.controls?.["cpassword"].updateValueAndValidity();
+   })
+    
+  }
+   matchValues(matchto:string):ValidatorFn{
+    return (control:AbstractControl|any)=>{
+      return control?.value === control?.parent?.controls[matchto].value
+      ? null:{isMatching:true}
+    }
   }
  
   onSubmit() {

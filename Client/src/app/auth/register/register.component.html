@@ -88,6 +88,11 @@
                   >
                     Confirm Password is required
                   </mat-error>
+                  <mat-error
+                    *ngIf="authForm.get('cpassword')?.hasError('isMatching')"
+                  >
+                    passwords do not match
+                  </mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -111,11 +116,25 @@
                       >Female</mat-radio-button
                     >
                   </mat-radio-group>
+                  <mat-error
+                    *ngIf="
+                      authForm.get('Gender')?.hasError('required') ||
+                      authForm.get('Gender')?.touched
+                    "
+                  >
+                    Gender is required
+                  </mat-error>
                 </section>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
                 <div class="dateOfbirth">
                   <mat-label>Date of Birth</mat-label>
                   <input
                     matInput
+                    style="border: 2px solid #f2f2f2"
+                    required
                     [matDatepicker]="picker"
                     formControlName="dateOfBirth"
                     name="dateOfBirth"
@@ -126,6 +145,9 @@
                     [for]="picker"
                   ></mat-datepicker-toggle>
                   <mat-datepicker #picker class="datepicker"></mat-datepicker>
+                  <mat-error *ngIf="authForm.get('dateOfBirth')?.touched">
+                    Date Of Birth is required
+                  </mat-error>
                 </div>
               </div>
             </div>
@@ -152,6 +174,14 @@
                   <mat-label>Country</mat-label>
                   <input matInput formControlName="country" />
                   <mat-icon matSuffix>location_city</mat-icon>
+                  <mat-error
+                    *ngIf="
+                      authForm.get('country')?.hasError('required') ||
+                      authForm.get('country')?.touched
+                    "
+                  >
+                    Please enter country
+                  </mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -161,6 +191,14 @@
                   <mat-label>City</mat-label>
                   <input matInput formControlName="city" />
                   <mat-icon matSuffix>location_city</mat-icon>
+                  <mat-error
+                    *ngIf="
+                      authForm.get('city')?.hasError('required') ||
+                      authForm.get('city')?.touched
+                    "
+                  >
+                    Please enter city
+                  </mat-error>
                 </mat-form-field>
               </div>
             </div>
@@ -170,6 +208,14 @@
                   <mat-label>Street</mat-label>
                   <input matInput formControlName="street" />
                   <mat-icon matSuffix>location_city</mat-icon>
+                  <mat-error
+                    *ngIf="
+                      authForm.get('street')?.hasError('required') ||
+                      authForm.get('street')?.touched
+                    "
+                  >
+                    Please enter street
+                  </mat-error>
                 </mat-form-field>
               </div>
             </div>
